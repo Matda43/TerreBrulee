@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Timers;
 using UnityEngine;
 
 public class Sun : MonoBehaviour
@@ -33,11 +34,13 @@ public class Sun : MonoBehaviour
 
     private void move()
     {
+
         if (moveForward && transform.position.x != locations_available[index_choosen].getX() && transform.position.y != locations_available[index_choosen].getY())
         {
             Location locationToReach = locations_available[index_choosen];
             transform.position = Vector2.MoveTowards(transform.position, new Vector3(locationToReach.getX(), locationToReach.getY()), speed * Time.deltaTime);
-        }else if (transform.position.x != locations_available_spawn[index_choosen].getX() && transform.position.y != locations_available_spawn[index_choosen].getY())
+        }
+        else if (transform.position.x != locations_available_spawn[index_choosen].getX() && transform.position.y != locations_available_spawn[index_choosen].getY())
         {
             Location locationToReach = locations_available_spawn[index_choosen];
             transform.position = Vector2.MoveTowards(transform.position, new Vector3(locationToReach.getX(), locationToReach.getY()), speed * Time.deltaTime);

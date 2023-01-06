@@ -20,7 +20,7 @@ public class Moon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        move();
+        move2();
     }
 
     private void move()
@@ -30,6 +30,20 @@ public class Moon : MonoBehaviour
         this.transform.position = new Vector2(posX, posY) * DISTANCE_FROM_EARTH;
         angle = angle + Time.deltaTime;
         angle = angle % 360f;
+    }
+
+    private void move2()
+    {
+        float rad = Mathf.Atan2(Input.mousePosition.y, Input.mousePosition.x);
+
+        float deg = Mathf.Round(rad * (180 / Mathf.PI));
+
+        //angle = Mathf.Round(rad * (180 / Mathf.PI));
+        float posX = Mathf.Cos(deg);
+        float posY = Mathf.Sin(deg);
+        
+        this.transform.position = new Vector2(posX, posY) * DISTANCE_FROM_EARTH;
+        //angle = angle % 360f;
     }
 
     private void setPosition(Location new_Location)
