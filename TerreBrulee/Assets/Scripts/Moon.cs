@@ -6,7 +6,7 @@ public class Moon : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    const float DISTANCE_FROM_EARTH = 3;
+    const float DISTANCE_FROM_EARTH = 2.25f;
     Vector2 spawn_location = new Vector2(DISTANCE_FROM_EARTH, 0);
 
     void Start()

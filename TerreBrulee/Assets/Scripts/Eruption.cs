@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class Eruption : MonoBehaviour
 {
-    float speed = 5f;
+    float speed = 3f;
 
     GameObject earth;
 
+    FollowEarth followEarth;
+
     void Start()
     {
+        followEarth = new FollowEarth();
         earth = GameObject.Find("Earth");
-        transform.rotation = lookEarth();
-
+        transform.rotation = followEarth.lookEarth(earth, this.gameObject, -90);
     }
 
     void Update()
@@ -23,18 +25,5 @@ public class Eruption : MonoBehaviour
     private void move()
     {
         transform.position = Vector3.MoveTowards(transform.position, Vector3.zero, speed * Time.deltaTime);
-    }
-
-    private Quaternion lookEarth()
-    {
-        Vector3 targ = earth.transform.position;
-        targ.z = 0f;
-
-        Vector3 objectPos = transform.position;
-        targ.x = targ.x - objectPos.x;
-        targ.y = targ.y - objectPos.y;
-
-        float angle = Mathf.Atan2(targ.y, targ.x) * Mathf.Rad2Deg;
-        return Quaternion.Euler(new Vector3(0, 0, angle - 90));
     }
 }
