@@ -17,11 +17,17 @@ public class Sun : MonoBehaviour
 
     bool moveForward = true;
 
-    bool waiting = false;
-    bool can_wait = false;
+    bool waitingT1 = false;
+    bool can_waitT1 = false;
 
-    const float TIME_TO_WAIT = 3;
-    float time = 0;
+    const float TIME_TO_WAIT_T1 = 3;
+    float timeT1 = 0;
+
+    const float TIME_TO_WAIT_T2 = 5;
+    float timeT2 = 0;
+
+    bool waitingT2 = false;
+
 
     void Start()
     {
@@ -32,13 +38,18 @@ public class Sun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!waiting)
+        
+        if(waitingT1)
         {
-            move();
+            waitT1(Time.deltaTime);
+        }
+        else if (waitingT2)
+        {
+            waitT2(Time.deltaTime);
         }
         else
         {
-            wait(Time.deltaTime);
+            move();
         }
     }
 
@@ -48,14 +59,14 @@ public class Sun : MonoBehaviour
         {
             Location locationToReach = locations_available[index_choosen];
             transform.position = Vector2.MoveTowards(transform.position, new Vector3(locationToReach.getX(), locationToReach.getY()), speed * Time.deltaTime);
-            can_wait = true;
+            can_waitT1 = true;
         }
         else if (transform.position.x != locations_available_spawn[index_choosen].getX() && transform.position.y != locations_available_spawn[index_choosen].getY())
         {
-            if (can_wait)
+            if (can_waitT1)
             {
-                waiting = true;
-                can_wait = false;
+                waitingT1 = true;
+                can_waitT1 = false;
             }
             Location locationToReach = locations_available_spawn[index_choosen];
             transform.position = Vector2.MoveTowards(transform.position, new Vector3(locationToReach.getX(), locationToReach.getY()), speed * Time.deltaTime);
@@ -66,6 +77,7 @@ public class Sun : MonoBehaviour
             Location location_choosen = chooseARandomLocation();
             setPosition(location_choosen);
             moveForward = true;
+            waitingT2 = true;
         }
     }
 
@@ -82,31 +94,60 @@ public class Sun : MonoBehaviour
         this.transform.position = new Vector2(new_Location.getX(), new_Location.getY());
     }
 
-    private void wait(float time_to_add)
+    private void waitT1(float time_to_add)
     {
-        if (timerShouldBeReset())
+        if (timerShouldBeResetT1())
         {
-            resetTimer();
-            waiting = false;
+            resetTimerT1();
+            waitingT1 = false;
         }
         else
         {
-            incTimer(time_to_add);
+            incTimerT1(time_to_add);
         }
     }
 
-    private void resetTimer()
+    private void resetTimerT1()
     {
-        time = 0;
+        timeT1 = 0;
     }
 
-    private bool timerShouldBeReset()
+    private bool timerShouldBeResetT1()
     {
-        return time >= TIME_TO_WAIT;
+        return timeT1 >= TIME_TO_WAIT_T1;
     }
 
-    private void incTimer(float time_to_add)
+    private void incTimerT1(float time_to_add)
     {
-        time += time_to_add;
+        timeT1 += time_to_add;
+    }
+
+
+    private void waitT2(float time_to_add)
+    {
+        if (timerShouldBeResetT2())
+        {
+            resetTimerT2();
+            waitingT2 = false;
+        }
+        else
+        {
+            incTimerT2(time_to_add);
+        }
+    }
+
+    private void resetTimerT2()
+    {
+        timeT2 = 0;
+    }
+
+    private bool timerShouldBeResetT2()
+    {
+        return timeT2 >= TIME_TO_WAIT_T2;
+    }
+
+    private void incTimerT2(float time_to_add)
+    {
+        timeT2 += time_to_add;
     }
 }
