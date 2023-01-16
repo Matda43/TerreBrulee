@@ -6,6 +6,8 @@ using UnityEngine;
 public class Sun : MonoBehaviour
 {
     // Start is called before the first frame update
+    public GameObject eruptions;
+    public GameObject eruption_instance;
 
     Location[] locations_available_spawn = new Location[] { new Location(-13, 9), new Location(13, 9), new Location(-13, -9), new Location(13, -9) };
 
@@ -27,7 +29,6 @@ public class Sun : MonoBehaviour
     float timeT2 = 0;
 
     bool waitingT2 = false;
-
 
     void Start()
     {
@@ -67,6 +68,7 @@ public class Sun : MonoBehaviour
             {
                 waitingT1 = true;
                 can_waitT1 = false;
+                produceEruption();
             }
             Location locationToReach = locations_available_spawn[index_choosen];
             transform.position = Vector2.MoveTowards(transform.position, new Vector3(locationToReach.getX(), locationToReach.getY()), speed * Time.deltaTime);
@@ -149,5 +151,12 @@ public class Sun : MonoBehaviour
     private void incTimerT2(float time_to_add)
     {
         timeT2 += time_to_add;
+    }
+
+    private void produceEruption()
+    {
+        GameObject gameObject = Instantiate(eruption_instance, transform, true);
+        gameObject.transform.parent = eruptions.transform;
+        gameObject.transform.position = transform.position;
     }
 }

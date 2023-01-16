@@ -498,6 +498,37 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -400}
   m_SizeDelta: {x: 380, y: 216}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &561603331
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 561603332}
+  m_Layer: 0
+  m_Name: Eruptions
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &561603332
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 561603331}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.11264795, y: -3.4296563, z: -0.08859891}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &696295656
 GameObject:
   m_ObjectHideFlags: 0
@@ -840,6 +871,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad3e309d57dd3249a3baba23193d448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eruptions: {fileID: 561603331}
+  eruption_instance: {fileID: 2335329019421190015, guid: f526d2eb150e78744874e86377b7c867, type: 3}
 --- !u!1 &1934471285
 GameObject:
   m_ObjectHideFlags: 0
