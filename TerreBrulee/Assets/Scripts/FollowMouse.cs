@@ -10,10 +10,10 @@ public class FollowMouse : MonoBehaviour
 
     public GameObject webcam;
     public GameObject point;
-
+    CameraCapture cc;
     void Start()
     {
-           
+        cc = webcam.GetComponent<CameraCapture>();
     }
 
     // Update is called once per frame
@@ -24,13 +24,8 @@ public class FollowMouse : MonoBehaviour
 
     private void move()
     {
-        //Vector2 direction = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-
-        CameraCapture cc = webcam.GetComponent<CameraCapture>();
-
         point.transform.position = cc.pointDetected;
-        Vector2 direction = Camera.main.ScreenToWorldPoint(cc.pointDetected) - transform.position;
-
+        Vector2 direction = point.transform.position - transform.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         transform.rotation = Quaternion.Slerp(transform.rotation, rotation, speed * Time.deltaTime);

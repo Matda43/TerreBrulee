@@ -100,7 +100,7 @@ public class CameraCapture : MonoBehaviour
 
         if (pBlue.X > -500000)
             pointDetected = new Vector2(pBlue.X/40 - 7.5f, pBlue.Y/48f - 5f);
-            Debug.Log(pBlue);
+            //Debug.Log(pointDetected);
         //Copie de l'image sur la texture
         textImage.LoadRawTextureData(img.ToImage<Rgba,byte>().Bytes);
         textImage.Apply();
