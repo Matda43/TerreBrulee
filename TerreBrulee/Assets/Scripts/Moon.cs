@@ -22,7 +22,7 @@ public class Moon : MonoBehaviour
 
 
     //If your GameObject starts to collide with another GameObject with a Collider
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter2D(Collision2D collision)
     {
         //Output the Collider's GameObject's name
         Debug.Log(collision.gameObject.name);
