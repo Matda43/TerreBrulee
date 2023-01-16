@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webcamScreen: {fileID: 550048548}
   infBornBlue: {x: 0, y: 80, z: 80}
-  suppBornBlue: {x: 60, y: 255, z: 255}
+  suppBornBlue: {x: 80, y: 255, z: 255}
 --- !u!1 &431835649
 GameObject:
   m_ObjectHideFlags: 0
