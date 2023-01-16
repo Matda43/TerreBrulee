@@ -21,6 +21,8 @@ public class CameraCapture : MonoBehaviour
     [SerializeField]
     Vector3 suppBornBlue;
 
+    public Vector2 pointDetected = Vector2.zero;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,7 +82,12 @@ public class CameraCapture : MonoBehaviour
         Emgu.CV.Util.VectorOfVectorOfPoint contoursBlue = new Emgu.CV.Util.VectorOfVectorOfPoint();
 
         CvInvoke.FindContours(treshHSVBlue, contoursBlue, hier, Emgu.CV.CvEnum.RetrType.External, Emgu.CV.CvEnum.ChainApproxMethod.ChainApproxSimple);
-       
+
+
+        Emgu.CV.Image<Rgba, byte> transparent = new Emgu.CV.Image<Rgba, byte>(img.Width, img.Height);
+
+
+
         CvInvoke.DrawContours(img, contoursBlue, 0, new MCvScalar(255, 255, 255), 2);
 
         Moments mBlue = CvInvoke.Moments(treshHSVBlue);
@@ -89,12 +96,13 @@ public class CameraCapture : MonoBehaviour
         int cGy = (int)(mBlue.M01 / mBlue.M00);
         System.Drawing.Point pBlue = new System.Drawing.Point(cGx, cGy);
 
-        CvInvoke.Circle(img, pBlue, 10, new MCvScalar(255, 0, 0), 2);
+        CvInvoke.Circle(img, pBlue, 10, new MCvScalar(255, 255, 255), 2);
 
-        if(pBlue.X > -500000)
+        if (pBlue.X > -500000)
+            pointDetected = new Vector2(pBlue.X/40 - 7.5f, pBlue.Y/48f - 5f);
             Debug.Log(pBlue);
         //Copie de l'image sur la texture
-        textImage.LoadRawTextureData(img.ToImage<Rgba, byte>().Bytes);
+        textImage.LoadRawTextureData(img.ToImage<Rgba,byte>().Bytes);
         textImage.Apply();
         
         //Ajout de la texture a webcamScreen
