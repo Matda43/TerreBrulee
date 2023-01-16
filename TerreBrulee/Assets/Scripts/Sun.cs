@@ -17,6 +17,12 @@ public class Sun : MonoBehaviour
 
     bool moveForward = true;
 
+    bool waiting = false;
+    bool can_wait = false;
+
+    const float TIME_TO_WAIT = 3;
+    float time = 0;
+
     void Start()
     {
         Location location_choosen = chooseARandomLocation();
@@ -26,22 +32,31 @@ public class Sun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (index_choosen >= 0)
+        if (!waiting)
         {
             move();
+        }
+        else
+        {
+            wait(Time.deltaTime);
         }
     }
 
     private void move()
     {
-
         if (moveForward && transform.position.x != locations_available[index_choosen].getX() && transform.position.y != locations_available[index_choosen].getY())
         {
             Location locationToReach = locations_available[index_choosen];
             transform.position = Vector2.MoveTowards(transform.position, new Vector3(locationToReach.getX(), locationToReach.getY()), speed * Time.deltaTime);
+            can_wait = true;
         }
         else if (transform.position.x != locations_available_spawn[index_choosen].getX() && transform.position.y != locations_available_spawn[index_choosen].getY())
         {
+            if (can_wait)
+            {
+                waiting = true;
+                can_wait = false;
+            }
             Location locationToReach = locations_available_spawn[index_choosen];
             transform.position = Vector2.MoveTowards(transform.position, new Vector3(locationToReach.getX(), locationToReach.getY()), speed * Time.deltaTime);
             moveForward = false;
@@ -65,5 +80,33 @@ public class Sun : MonoBehaviour
     private void setPosition(Location new_Location)
     {
         this.transform.position = new Vector2(new_Location.getX(), new_Location.getY());
+    }
+
+    private void wait(float time_to_add)
+    {
+        if (timerShouldBeReset())
+        {
+            resetTimer();
+            waiting = false;
+        }
+        else
+        {
+            incTimer(time_to_add);
+        }
+    }
+
+    private void resetTimer()
+    {
+        time = 0;
+    }
+
+    private bool timerShouldBeReset()
+    {
+        return time >= TIME_TO_WAIT;
+    }
+
+    private void incTimer(float time_to_add)
+    {
+        time += time_to_add;
     }
 }
