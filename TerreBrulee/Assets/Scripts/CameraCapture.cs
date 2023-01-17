@@ -21,11 +21,15 @@ public class CameraCapture : MonoBehaviour
     [SerializeField]
     Vector3 suppBornBlue;
 
+    public bool visibleCam;
+
     public Vector2 pointDetected = Vector2.zero;
 
     // Start is called before the first frame update
     void Start()
     {
+        if (!visibleCam)
+            webcamScreen.gameObject.SetActive(false);
         webcam = new VideoCapture(0, VideoCapture.API.DShow);
         webcam.ImageGrabbed += HandleWebcamQueryFrame;
         webcam.Start();
@@ -100,7 +104,6 @@ public class CameraCapture : MonoBehaviour
 
         if (pBlue.X > -500000)
             pointDetected = new Vector2(pBlue.X/40 - 7.5f, pBlue.Y/48f - 5f);
-            //Debug.Log(pointDetected);
         //Copie de l'image sur la texture
         textImage.LoadRawTextureData(img.ToImage<Rgba,byte>().Bytes);
         textImage.Apply();
