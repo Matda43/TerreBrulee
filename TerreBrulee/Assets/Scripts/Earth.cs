@@ -9,10 +9,15 @@ public class Earth : MonoBehaviour
     public GameObject endMenu;
     public TextMeshProUGUI endText;
 
+    public AudioClip comet;
+    public AudioClip eruption;
+
+    AudioSource audiosource;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        audiosource = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,6 +28,18 @@ public class Earth : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.gameObject.tag == "Comet")
+        {
+            audiosource.clip = comet;
+            audiosource.volume = 0.1f;
+            audiosource.Play();
+        }
+        else
+        {
+            audiosource.clip = eruption;
+            audiosource.volume = 0.7f;
+            audiosource.Play();
+        }
         openEndMessage();
         Time.timeScale = 0;
     }
